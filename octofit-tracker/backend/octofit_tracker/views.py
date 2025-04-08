@@ -1,6 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import generics
+from rest_framework.decorators import api_view
 from .models import User, Team, Activity, Leaderboard, Workout
 from .serializers import UserSerializer, TeamSerializer, ActivitySerializer, LeaderboardSerializer, WorkoutSerializer
 
@@ -24,7 +25,8 @@ class WorkoutListCreate(generics.ListCreateAPIView):
     queryset = Workout.objects.all()
     serializer_class = WorkoutSerializer
 
-def api_root(request):
+@api_view(['GET'])
+def api_root(request, format=None):
     return Response({
         'users': '/api/users/',
         'teams': '/api/teams/',
